@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <!-- <router-link to="/">Home</router-link> -->
+      <b-nav tabs align="center">
+        <b-nav-item active to="/">Search</b-nav-item>
+        <b-nav-item>Read now</b-nav-item>
+        <b-nav-item>Read Later</b-nav-item>
+      </b-nav>
+      <!-- <router-link to="/">Search</router-link> -->
     </div>
     <router-view />
   </div>
@@ -21,7 +26,7 @@
     font-weight: bold;
     color: #2c3e50;
     &.router-link-exact-active {
-      color: #42b983;
+      color: #007bff;
     }
   }
 }
