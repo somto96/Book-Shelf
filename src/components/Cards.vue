@@ -13,34 +13,7 @@
     </div>
   </div>
 
-  <!-- <div id="card"> title="Card Title"
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="Image"
-    img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
-    <b-card no-body class="overflow-hidden" style="max-width: 100%;">
-      <b-row no-gutters>
-        <b-col md="6">
-          <b-card-img :src="imageLinks" class="rounded-0"></b-card-img>
-        </b-col>
-        <b-col md="6">
-          <b-card-body title>
-            <b-card-title>{{title}}</b-card-title>
-            <b-card-sub-title
-              class="mb-2"
-              v-for="(author, index) in authors"
-              :key="index"
-            >{{author}}</b-card-sub-title>
-            <b-card-text>{{description}}...</b-card-text>
-            <b-button variant="outline-primary mr-3">Read Later</b-button>
-            <b-button variant="outline-primary ml-3">Read Now</b-button>
-          </b-card-body>
-        </b-col>
-      </b-row>
-    </b-card> 
-  </div>-->
+  
 </template>
 
 <script>
