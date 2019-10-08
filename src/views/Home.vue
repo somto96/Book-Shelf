@@ -13,17 +13,14 @@
         </b-form>
       </div>
     </div>
-
+<!-- {{allBooks}} -->
     <div class="row">
-      <div class="col-md-4 col-sm-6" v-for="(book, index) in books" :key="index">
-        <Cards
-          :title="book.volumeInfo.title"
-          :authors="book.volumeInfo.authors"
-          :description="book.volumeInfo.description"
-          :imageLinks="book.volumeInfo.imageLinks.thumbnail"
-        />
-      </div> 
-      
+      <div class="col-md-4 col-sm-6" v-for="(book, index) in allBooks.items" :key="index">
+        <Cards 
+        :title="book.volumeInfo.title" 
+        :authors="book.volumeInfo.authors" 
+        :imageLinks="book.volumeInfo.imageLinks.thumbnail" />
+      </div>
     </div>
   </div>
 </template>
@@ -33,47 +30,35 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 // import Form from "@/components/Form.vue";
 import Cards from "@/components/Cards.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "home",
   components: {
     Cards
   },
+  
   data() {
     return {
-      books: [],
-      // bookTitle: {},
-      // bookAuthors: [],
-      // bookDescription: {},
       form: {
         query: ""
       }
     };
   },
+
+  computed: {
+    ...mapGetters(['allBooks'])
+  },
   methods: {
+    ...mapActions(['getBooks']),
     onSubmit() {
       console.log(this.form);
-      const baseURI =
-        "https://www.googleapis.com/books/v1/volumes?q=" + this.form.query;
-      this.$http.get(baseURI).then(result => {
-        this.books = result.data.items;
-        // this.books.push(items.volumeInfo);
-        // this.bookAuthors = this.books.volumeInfo.authors;
-        // this.bookDescription = this.books.volumeInfo.description;
-        console.log(this.books);
-        return this.books;
-
-        // console.log(result.data.items);
-      });
+      let payload = {
+        query: this.form.query
+      };
+      this.getBooks(payload);
     }
-
-    // getBooks() {
-
-    // }
-  }
-  // created:{},
-  // mounted:{
-  //   this.getBooks();
-  // }
+  },
+  
 };
 </script>
 
@@ -83,7 +68,7 @@ export default {
   border-radius: 0;
   outline: none;
 }
-#modal-content .modal-dialog .modal-content .modal-header{
+#modal-content .modal-dialog .modal-content .modal-header {
   border-bottom: none !important;
 }
 </style>

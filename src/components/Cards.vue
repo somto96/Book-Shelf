@@ -12,8 +12,6 @@
       </div>
     </div>
   </div>
-
-  
 </template>
 
 <script>
@@ -21,9 +19,17 @@ export default {
   props: {
     title: String,
     authors: Array,
-    description: String,
-    imageLinks: String
-  }
+    imageLinks: String,
+  },
+  // methods: {
+  //   readLater(index) {
+  //     this.laterObj = currentCard.volumeInfo;
+  //     this.selectedIndex = index;
+  //     if (typeof Storage !== "undefined") {
+  //       localStorage.setItem(currentCard.volumeInfo);
+  //     }
+  //   }
+  // }
 };
 </script>
 
@@ -54,11 +60,11 @@ export default {
       transform: rotateY(180deg);
       padding: 10px 10px;
 
-      .btn-outline-primary{
+      .btn-outline-primary {
         border-color: #007bff !important;
         color: #007bff;
       }
-      .btn-outline-primary:hover{
+      .btn-outline-primary:hover {
         border-color: #007bff !important;
         color: #fff;
       }
@@ -76,6 +82,4 @@ export default {
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
-
-
 </style>
