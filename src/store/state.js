@@ -1,3 +1,5 @@
 export default {
-  books: []
+  books: [],
+  readLater:[],
+  readNow: []
 };

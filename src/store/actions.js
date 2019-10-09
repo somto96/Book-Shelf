@@ -7,5 +7,11 @@ export default {
       `https://www.googleapis.com/books/v1/volumes?q=${query}` 
     );
     commit("setBooks", response.data);
+  },
+  saveBook: ({ commit }, payload) => {
+    commit("saveLater", payload);
+  },
+  readBook: ({ commit }, payload) => {
+    commit("setNow", payload);
   }
 };

@@ -15,11 +15,13 @@
     </div>
 <!-- {{allBooks}} -->
     <div class="row">
-      <div class="col-md-4 col-sm-6" v-for="(book, index) in allBooks.items" :key="index">
+      <div class="col-md-4 col-sm-6" v-for="book  in allBooks.items" :key="book.id">
         <Cards 
         :title="book.volumeInfo.title" 
         :authors="book.volumeInfo.authors" 
-        :imageLinks="book.volumeInfo.imageLinks.thumbnail" />
+        :imageLink="book.volumeInfo.imageLinks.thumbnail"
+        :currentCard="book[index]"
+        />
       </div>
     </div>
   </div>
@@ -39,6 +41,7 @@ export default {
   
   data() {
     return {
+      index: 0,
       form: {
         query: ""
       }

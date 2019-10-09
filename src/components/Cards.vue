@@ -2,34 +2,70 @@
   <div class="flip-card">
     <div class="flip-card-inner">
       <div class="flip-card-front">
-        <img :src="imageLinks" :alt="title" style="width:300px;height:300px;" />
+        <img :src="imageLink" :alt="title" style="width:300px;height:300px;" />
       </div>
       <div class="flip-card-back">
         <h4 class="mt-3 mb-3">{{title}}</h4>
         <p v-for="(author, index) in authors" :key="index">{{author}}</p>
-        <b-button variant="outline-primary mr-3">Read Later</b-button>
-        <b-button variant="outline-primary ml-3">Read Now</b-button>
+        <b-button variant="outline-primary mr-3" @click="saveLater()">Read Later</b-button>
+        <b-button variant="outline-primary ml-3" @click="readNow()">Read Now</b-button>
+        <!-- {{readLater}} -->
       </div>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        variant="primary"
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        <p>{{title}} has been added to your library</p>
+        <b-progress variant="primary" :max="dismissSecs" :value="dismissCountDown" height="4px"></b-progress>
+      </b-alert>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      dismissSecs: 3,
+      dismissCountDown: 0
+    };
+  },
   props: {
     title: String,
     authors: Array,
-    imageLinks: String,
+    imageLink: String
+    // currentCard: Object
   },
-  // methods: {
-  //   readLater(index) {
-  //     this.laterObj = currentCard.volumeInfo;
-  //     this.selectedIndex = index;
-  //     if (typeof Storage !== "undefined") {
-  //       localStorage.setItem(currentCard.volumeInfo);
-  //     }
-  //   }
-  // }
+  methods: {
+    ...mapActions(["saveBook", "readBook"]),
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    saveLater() {
+      // console.log(this.currentCard)
+      const payload = {
+        title: this.title,
+        authors: this.authors,
+        imageLink: this.imageLink
+      };
+      this.saveBook(payload);
+      this.dismissCountDown = this.dismissSecs
+    },
+    readNow() {
+      // console.log(this.currentCard)
+      const payload = {
+        title: this.title,
+        authors: this.authors,
+        imageLink: this.imageLink
+      };
+      this.readBook(payload);
+      this.dismissCountDown = this.dismissSecs
+    }
+  }
 };
 </script>
 
@@ -67,6 +103,7 @@ export default {
       .btn-outline-primary:hover {
         border-color: #007bff !important;
         color: #fff;
+        font-weight: 600;
       }
     }
 
