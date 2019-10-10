@@ -13,5 +13,9 @@ export default {
   },
   readBook: ({ commit }, payload) => {
     commit("setNow", payload);
+  },
+  removeBook: ({ commit }, payload) => {
+    commit("killBook", payload);
   }
+
 };

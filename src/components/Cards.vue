@@ -1,5 +1,15 @@
 <template>
   <div class="flip-card">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      variant="primary"
+      @dismissed="dismissCountDown=0"
+      @dismiss-count-down="countDownChanged"
+    >
+      <p>{{title}} has been added to your library</p>
+      <b-progress variant="primary" :max="dismissSecs" :value="dismissCountDown" height="4px"></b-progress>
+    </b-alert>
     <div class="flip-card-inner">
       <div class="flip-card-front">
         <img :src="imageLink" :alt="title" style="width:300px;height:300px;" />
@@ -7,64 +17,70 @@
       <div class="flip-card-back">
         <h4 class="mt-3 mb-3">{{title}}</h4>
         <p v-for="(author, index) in authors" :key="index">{{author}}</p>
-        <b-button variant="outline-primary mr-3" @click="saveLater()">Read Later</b-button>
-        <b-button variant="outline-primary ml-3" @click="readNow()">Read Now</b-button>
+        <!-- <b-button variant="outline-primary mr-3" @click="saveLater()">Read Later</b-button>
+        <b-button variant="outline-primary ml-3" @click="readNow()">Read Now</b-button>-->
+        <Buttons @read-later="saveLater" @read-now="readNow" />
+
         <!-- {{readLater}} -->
       </div>
-      <b-alert
-        :show="dismissCountDown"
-        dismissible
-        variant="primary"
-        @dismissed="dismissCountDown=0"
-        @dismiss-count-down="countDownChanged"
-      >
-        <p>{{title}} has been added to your library</p>
-        <b-progress variant="primary" :max="dismissSecs" :value="dismissCountDown" height="4px"></b-progress>
-      </b-alert>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Buttons from "../components/Buttons";
 export default {
+  components: {
+    Buttons
+  },
   data() {
     return {
       dismissSecs: 3,
-      dismissCountDown: 0
+      dismissCountDown: 0,
+     
     };
   },
   props: {
     title: String,
     authors: Array,
-    imageLink: String
+    imageLink: String,
+    id: String
     // currentCard: Object
   },
+  computed: {
+    ...mapGetters(["allBooks"])
+  },
   methods: {
-    ...mapActions(["saveBook", "readBook"]),
+    ...mapActions(["saveBook", "readBook", "removeBook"]),
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
     saveLater() {
       // console.log(this.currentCard)
-      const payload = {
+      let payload = {
         title: this.title,
         authors: this.authors,
-        imageLink: this.imageLink
+        imageLink: this.imageLink,
+        // id: this.id
       };
       this.saveBook(payload);
-      this.dismissCountDown = this.dismissSecs
+      this.dismissCountDown = this.dismissSecs;
     },
     readNow() {
       // console.log(this.currentCard)
-      const payload = {
+      let payload = {
         title: this.title,
         authors: this.authors,
-        imageLink: this.imageLink
+        imageLink: this.imageLink,
+        id: this.id
       };
+     
       this.readBook(payload);
-      this.dismissCountDown = this.dismissSecs
+      this.dismissCountDown = this.dismissSecs;
+      this.removeBook(payload)
     }
+    
   }
 };
 </script>

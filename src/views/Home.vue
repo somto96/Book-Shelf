@@ -20,6 +20,7 @@
         :title="book.volumeInfo.title" 
         :authors="book.volumeInfo.authors" 
         :imageLink="book.volumeInfo.imageLinks.thumbnail"
+        :id="book.id"
         :currentCard="book[index]"
         />
       </div>
