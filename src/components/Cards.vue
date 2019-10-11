@@ -1,5 +1,5 @@
 <template>
-  <div class="flip-card">
+  <div class="flip-card"  >
     <b-alert
       :show="dismissCountDown"
       dismissible
@@ -19,7 +19,7 @@
         <p v-for="(author, index) in authors" :key="index">{{author}}</p>
         <!-- <b-button variant="outline-primary mr-3" @click="saveLater()">Read Later</b-button>
         <b-button variant="outline-primary ml-3" @click="readNow()">Read Now</b-button>-->
-        <Buttons @read-later="saveLater" @read-now="readNow" />
+        <Buttons @read-later="saveLater" @read-now="readNow"  />
 
         <!-- {{readLater}} -->
       </div>
@@ -38,7 +38,6 @@ export default {
     return {
       dismissSecs: 3,
       dismissCountDown: 0,
-     
     };
   },
   props: {
@@ -46,7 +45,6 @@ export default {
     authors: Array,
     imageLink: String,
     id: String
-    // currentCard: Object
   },
   computed: {
     ...mapGetters(["allBooks"])
@@ -56,16 +54,19 @@ export default {
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
+    
     saveLater() {
       // console.log(this.currentCard)
       let payload = {
         title: this.title,
         authors: this.authors,
         imageLink: this.imageLink,
-        // id: this.id
+        id: this.id
       };
       this.saveBook(payload);
       this.dismissCountDown = this.dismissSecs;
+      this.removeBook(payload)
+      
     },
     readNow() {
       // console.log(this.currentCard)
@@ -75,9 +76,9 @@ export default {
         imageLink: this.imageLink,
         id: this.id
       };
-     
       this.readBook(payload);
       this.dismissCountDown = this.dismissSecs;
+      // this.clicked = !this.clicked
       this.removeBook(payload)
     }
     
