@@ -3,6 +3,16 @@ import Axios from "axios"
 export default {
   async getBooks({ commit }, { query }) {
     console.log(query)
+    Axios.interceptors.request.use(config => {
+      NProgress.configure({ easing: 'ease', speed: 100 });
+      NProgress.set(0.7);
+      return config;
+    });
+    Axios.interceptors.response.use(response => {
+      NProgress.configure({ easing: 'ease', speed: 100 });
+      NProgress.done();
+      return response;
+    });
     const response = await Axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=${query}` 
     );
