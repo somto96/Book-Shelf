@@ -1,5 +1,6 @@
 export default {
   allBooks: state => state.books,
   showSavedBooks: state => state.readLater,
-  showReadNow: state => state.readNow
+  showReadNow: state => state.readNow,
+  user: state => state.user
 };

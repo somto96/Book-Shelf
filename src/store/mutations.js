@@ -6,5 +6,11 @@ export default {
     var result = state.books.items.findIndex(e => e.id === book.id);
     state.books.items.splice(result, 1);
     return state.books;
+  },
+  SET_LOGGED_IN(state, value) {
+    state.user.loggedIn = value;
+  },
+  SET_USER(state, data) {
+    state.user.data = data;
   }
 };

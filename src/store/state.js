@@ -1,5 +1,9 @@
 export default {
   books: [],
   readLater:[],
-  readNow: []
+  readNow: [],
+  user: {
+    loggedIn: false,
+    data: null
+  }
 };
