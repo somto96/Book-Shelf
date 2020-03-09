@@ -29,7 +29,7 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto tabs">
-            <b-nav-item v-if="user.loggedIn" to="#">Welcome {{user.data.displayName}}</b-nav-item>
+            <!-- <b-nav-item v-if="user.loggedIn" to="#">Welcome {{user.data.displayName}}</b-nav-item> -->
             <b-nav-item class="tab" to="/home">Search</b-nav-item>
             <b-nav-item class="tab" to="/reading">Read now</b-nav-item>
             <b-nav-item class="tab" to="/later">Read Later</b-nav-item>
